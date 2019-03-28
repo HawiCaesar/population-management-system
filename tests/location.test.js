@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = require("../app");
 const locationFixtures = require("./fixtures");
 const teardown = require("./teardown");
+const Location = require("../models/location");
 
 const api = new requests(app);
 
@@ -74,5 +75,45 @@ describe("Location tests", () => {
         );
         done();
       });
+  });
+
+  test("should fetch one location", done => {
+    Location.create(locationFixtures.locations[1], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        api.get(`/api/locations/${result._id}`).end((error, response) => {
+          if (error) {
+            throw done(error);
+          }
+          expect(response.status).toEqual(200);
+          expect(response.body.name).toMatch(
+            locationFixtures.locations[1].name
+          );
+          done();
+        });
+      }
+    });
+  });
+
+  test("should not fetch with wrong location id", done => {
+    Location.create(locationFixtures.locations[2], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        api
+          .get(`/api/locations/5b1c76bd9e0e83f458f4c646`)
+          .end((error, response) => {
+            if (error) {
+              throw done(error);
+            }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Location not found");
+            done();
+          });
+      }
+    });
   });
 });

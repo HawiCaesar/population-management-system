@@ -17,6 +17,21 @@ const createLocation = (request, response) => {
   });
 };
 
+const getOneLocation = (request, response) => {
+  Location.findOne({ _id: request.params.locationId }, (error, result) => {
+    if (error) {
+      return response.status(500).send({ message: error.message });
+    }
+
+    if (!result) {
+      return response.status(404).send({ message: "Location not found" });
+    }
+
+    return response.status(200).send(result);
+  });
+};
+
 module.exports = {
-  createLocation
+  createLocation,
+  getOneLocation
 };

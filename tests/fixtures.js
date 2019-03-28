@@ -8,6 +8,21 @@ const locations = [
     name: "Mombasa",
     male: 10850,
     female: 11800
+  },
+  {
+    name: "Nakuru",
+    male: 20850,
+    female: 21800
+  },
+  {
+    name: "Eldoret",
+    male: 24850,
+    female: 24800
+  },
+  {
+    name: "Kisumu",
+    male: 29850,
+    female: 24900
   }
 ];
 
