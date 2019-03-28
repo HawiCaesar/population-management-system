@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
-let mongodb = process.env.MONGODB_URI;
+let mongodb;
+
+if (process.env.NODE_ENV) {
+  mongodb = process.env.TEST_MONGODB_URI;
+} else {
+  mongodb = process.env.MONGODB_URI;
+}
 mongoose.connect(mongodb, { useNewUrlParser: true });
 
 mongoose.Promise = global.Promise;
