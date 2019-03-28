@@ -1,0 +1,21 @@
+{
+  "name": "population-management-system",
+  "version": "1.0.0",
+  "main": "app.js",
+  "author": "HawiCaesar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.2",
+    "mongoose": "^5.4.20",
+    "morgan": "^1.9.1"
+  },
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
