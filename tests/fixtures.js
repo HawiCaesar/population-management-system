@@ -1,20 +1,28 @@
-const { ObjectID } = require("mongodb");
-
-const testObjectId1 = new ObjectID();
-const testObjectId2 = new ObjectID();
-
 const locations = [
   {
-    _id: testObjectId1,
     name: "Nairobi",
     male: 10950,
     female: 12800
   },
   {
-    _id: testObjectId2,
     name: "Mombasa",
     male: 10850,
     female: 11800
+  },
+  {
+    name: "Nakuru",
+    male: 20850,
+    female: 21800
+  },
+  {
+    name: "Eldoret",
+    male: 24850,
+    female: 24800
+  },
+  {
+    name: "Kisumu",
+    male: 29850,
+    female: 24900
   }
 ];
 
@@ -37,8 +45,6 @@ const locationNameTooShort = {
 };
 
 module.exports = {
-  testObjectId1,
-  testObjectId2,
   locations,
   locationNameTooShort,
   locationWrongFemaleCount,

@@ -22,6 +22,11 @@ const getOneLocation = (request, response) => {
     if (error) {
       return response.status(500).send({ message: error.message });
     }
+
+    if (!result) {
+      return response.status(404).send({ message: "Location not found" });
+    }
+
     return response.status(200).send(result);
   });
 };

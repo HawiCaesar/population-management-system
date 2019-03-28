@@ -96,4 +96,24 @@ describe("Location tests", () => {
       }
     });
   });
+
+  test("should not fetch with wrong location id", done => {
+    Location.create(locationFixtures.locations[2], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        api
+          .get(`/api/locations/5b1c76bd9e0e83f458f4c646`)
+          .end((error, response) => {
+            if (error) {
+              throw done(error);
+            }
+            expect(response.status).toEqual(404);
+            expect(response.body.message).toMatch("Location not found");
+            done();
+          });
+      }
+    });
+  });
 });
