@@ -13,9 +13,12 @@
     "morgan": "^1.9.1"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "export NODE_ENV=test && jest tests/*.test.js -i --detectOpenHandles --forceExit"
   },
   "devDependencies": {
-    "nodemon": "^1.18.10"
+    "jest": "^24.5.0",
+    "nodemon": "^1.18.10",
+    "supertest": "^4.0.2"
   }
 }
