@@ -1,3 +1,4 @@
+const { ObjectID } = require("mongodb");
 const validateGenderFigures = (request, response, next) => {
   const { male, female } = request.body;
 
@@ -15,7 +16,7 @@ const validateGenderFigures = (request, response, next) => {
     });
   }
 
-  next();
+  return next();
 };
 
 const validateLocationName = (request, response, next) => {
@@ -26,10 +27,28 @@ const validateLocationName = (request, response, next) => {
       message: "The location name should be greater than 2 characters"
     });
   }
-  next();
+  return next();
+};
+
+const objectIdValidationInBody = (request, response, next) => {
+  if (request.body.parentLocation) {
+    if (!ObjectID.isValid(request.body.parentLocation)) {
+      return response.status(404).send({ message: "Location id not found" });
+    }
+  }
+  return next();
+};
+
+const objectIdValidationInParams = (request, response, next) => {
+  if (!ObjectID.isValid(request.params.locationId)) {
+    return response.status(404).send({ message: "Location id not found" });
+  }
+  return next();
 };
 
 module.exports = {
   validateGenderFigures,
-  validateLocationName
+  validateLocationName,
+  objectIdValidationInBody,
+  objectIdValidationInParams
 };

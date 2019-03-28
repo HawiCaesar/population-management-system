@@ -8,8 +8,15 @@ router.post(
   "/locations",
   validation.validateLocationName,
   validation.validateGenderFigures,
+  validation.objectIdValidationInBody,
   locationCheck,
   locationController.createLocation
+);
+
+router.get(
+  "/locations/:locationId",
+  validation.objectIdValidationInParams,
+  locationController.getOneLocation
 );
 
 module.exports = router;
