@@ -19,4 +19,6 @@ router.get(
   locationController.getOneLocation
 );
 
+router.get("/locations", locationController.getAllLocations);
+
 module.exports = router;

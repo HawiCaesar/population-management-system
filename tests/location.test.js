@@ -116,4 +116,15 @@ describe("Location tests", () => {
       }
     });
   });
+
+  test("should fetch all locations with totals", done => {
+    api.get(`/api/locations`).end((error, response) => {
+      if (error) {
+        throw done(error);
+      }
+      expect(response.status).toEqual(200);
+      expect(response.body[0]).toHaveProperty("totalResidents");
+      done();
+    });
+  });
 });

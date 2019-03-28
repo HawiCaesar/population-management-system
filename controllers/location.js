@@ -31,7 +31,36 @@ const getOneLocation = (request, response) => {
   });
 };
 
+const getAllLocations = (request, response) => {
+  Location.aggregate(
+    [
+      {
+        $project: {
+          _id: "$_id",
+          name: "$name",
+          male: "$male",
+          female: "$female",
+          parentLocation: "$parentLocation",
+          totalResidents: { $add: ["$male", "$female"] }
+        }
+      }
+    ],
+    (error, results) => {
+      if (error) {
+        return response.status(500).send({ message: error.message });
+      }
+
+      if (!results) {
+        return response.status(200).send([]);
+      }
+
+      return response.status(200).send(results);
+    }
+  );
+};
+
 module.exports = {
   createLocation,
-  getOneLocation
+  getOneLocation,
+  getAllLocations
 };
