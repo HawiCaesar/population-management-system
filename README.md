@@ -16,13 +16,8 @@ This is a node.js app that depends on the following technologies.
 
 1. Navigate to the directory you want it installed to. cd your folder
 2. Clone the repository https://github.com/HawiCaesar/population-management-system.git.
-3. Create an account, user and database on [Mlab](https://mlab.com)
+3. Create an account, users and databases on [Mlab](https://mlab.com)
    - Create 2 databases(test and development).
-   Or you these in the meantime before I close the account
-   ```
-   MONGODB_URI=mongodb://hawiC:hawiCX3@ds125526.mlab.com:25526/population-management
-   TEST_MONGODB_URI=mongodb://testUserhc:testUserhc123@ds159274.mlab.com:59274/test-population-db
-   ```
 4. Navigate the population-management-system folder.
 5. Create a .env file using the .env.example as a guide.
 6. `yarn install` to install all dependencies.
