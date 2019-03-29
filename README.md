@@ -129,7 +129,7 @@ This is a node.js app that depends on the following technologies.
 }
 ```
 
-### PUT a location `/api/location/:locationId`
+### DELETE a location `/api/location/:locationId`
 
 #### Response
 
