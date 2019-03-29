@@ -28,4 +28,10 @@ router.put(
   locationController.updateALocation
 );
 
+router.delete(
+  "/locations/:locationId",
+  validation.objectIdValidationInParams,
+  locationController.deleteLocation
+);
+
 module.exports = router;

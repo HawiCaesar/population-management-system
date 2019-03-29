@@ -261,4 +261,29 @@ describe("Location tests", () => {
         });
     });
   });
+
+  test("should delete one location", done => {
+    api.get(`/api/locations`).end((error, response) => {
+      if (error) {
+        throw done(error);
+      }
+
+      api
+        .delete(`/api/locations/${response.body[0]._id}`)
+        .end((deleteError, deleteRepsonse) => {
+          expect(deleteRepsonse.status).toEqual(204);
+          done();
+        });
+    });
+  });
+
+  test("should not delete one location with wrong _id", done => {
+    api
+      .delete(`/api/locations/2b1ecaf4ab51f01bc8061c9b`)
+      .end((deleteError, deleteRepsonse) => {
+        expect(deleteRepsonse.status).toEqual(404);
+        expect(deleteRepsonse.body.message).toEqual("Location not found");
+        done();
+      });
+  });
 });

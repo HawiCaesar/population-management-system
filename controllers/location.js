@@ -79,9 +79,20 @@ const updateALocation = (request, response) => {
   );
 };
 
+const deleteLocation = (request, response) => {
+  Location.deleteOne({ _id: request.params.locationId }, (error, result) => {
+    if (result.ok === 1 && result.n === 1) {
+      return response.status(204).send();
+    } else {
+      return response.status(404).send({ message: "Location not found" });
+    }
+  });
+};
+
 module.exports = {
   createLocation,
   getOneLocation,
   getAllLocations,
-  updateALocation
+  updateALocation,
+  deleteLocation
 };
