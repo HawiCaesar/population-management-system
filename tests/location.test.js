@@ -234,4 +234,31 @@ describe("Location tests", () => {
       }
     });
   });
+
+  test("should allow the user to change parent location to null", done => {
+    const newLocation = {
+      name: "Kikuyu",
+      male: 400,
+      female: 500
+    };
+
+    Location.create(newLocation, (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      }
+      api
+        .put(`/api/locations/${result._id}`)
+        .set("Content-Type", "application/json")
+        .send({ parentLocation: null })
+        .end((error, response) => {
+          if (error) {
+            throw done(error);
+          }
+          expect(response.status).toEqual(200);
+          expect(response.body.result.parentLocation).toBeNull();
+          done();
+        });
+    });
+  });
 });
