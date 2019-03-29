@@ -7,7 +7,7 @@ if (process.env.NODE_ENV) {
 } else {
   mongodb = process.env.MONGODB_URI;
 }
-mongoose.connect(mongodb, { useNewUrlParser: true });
+mongoose.connect(mongodb, { useNewUrlParser: true, useFindAndModify: false });
 
 mongoose.Promise = global.Promise;
 

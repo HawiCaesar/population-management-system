@@ -59,8 +59,29 @@ const getAllLocations = (request, response) => {
   );
 };
 
+const updateALocation = (request, response) => {
+  Location.findOneAndUpdate(
+    { _id: request.params.locationId },
+    {
+      $set: request.body
+    },
+    { new: true },
+    (error, result) => {
+      if (error) {
+        return response.status(500).send({ message: error.message });
+      }
+
+      if (!result) {
+        return response.status(404).send({ message: "Location not found" });
+      }
+      return response.status(200).send({ message: "Location updated", result });
+    }
+  );
+};
+
 module.exports = {
   createLocation,
   getOneLocation,
-  getAllLocations
+  getAllLocations,
+  updateALocation
 };

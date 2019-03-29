@@ -15,14 +15,14 @@ const locationCheck = (request, response, next) => {
       return response.status(404).send({ message: "Location not found" });
     }
 
-    if (result.male < male) {
+    if (male && result.male < male) {
       return response.status(400).send({
         message:
           "The male total cannot be greater than the parent location male total"
       });
     }
 
-    if (result.female < female) {
+    if (female && result.female < female) {
       return response.status(400).send({
         message:
           "The female total cannot be greater than the parent location female total"

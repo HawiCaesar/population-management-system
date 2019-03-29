@@ -127,4 +127,111 @@ describe("Location tests", () => {
       done();
     });
   });
+
+  test("should update one location", done => {
+    const updatedLocation = {
+      name: "Eldi",
+      male: 24000,
+      female: 23900
+    };
+    Location.create(locationFixtures.locations[3], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        expect(result.name).toMatch(locationFixtures.locations[3].name);
+        expect(result.male).toEqual(locationFixtures.locations[3].male);
+        expect(result.female).toEqual(locationFixtures.locations[3].female);
+
+        api
+          .put(`/api/locations/${result._id}`)
+          .set("Content-Type", "application/json")
+          .send(updatedLocation)
+          .end((error, response) => {
+            if (error) {
+              throw done(error);
+            }
+            expect(response.status).toEqual(200);
+            expect(response.body.result.name).toMatch(updatedLocation.name);
+            expect(response.body.result.male).toEqual(updatedLocation.male);
+            expect(response.body.result.female).toEqual(updatedLocation.female);
+            done();
+          });
+      }
+    });
+  });
+
+  test("should not update the location if female count is more than parent location", done => {
+    Location.create(locationFixtures.locations[4], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        Location.create(
+          {
+            name: "Bem Beach",
+            male: 5000,
+            female: 4500
+          },
+          (error, latestResult) => {
+            if (error) {
+              console.log("Error occurred while inserting");
+              done();
+            }
+            api
+              .put(`/api/locations/${latestResult._id}`)
+              .set("Content-Type", "application/json")
+              .send({ female: 50000, parentLocation: result._id })
+              .end((error, response) => {
+                if (error) {
+                  throw done(error);
+                }
+                expect(response.status).toEqual(400);
+                expect(response.body.message).toMatch(
+                  "The female total cannot be greater than the parent location female total"
+                );
+                done();
+              });
+          }
+        );
+      }
+    });
+  });
+
+  test("should not update the location if male count is more than parent location", done => {
+    Location.create(locationFixtures.locations[5], (error, result) => {
+      if (error) {
+        console.log("Error occurred while inserting");
+        done();
+      } else {
+        Location.create(
+          {
+            name: "Busia ndogo",
+            male: 400,
+            female: 500
+          },
+          (error, latestResult) => {
+            if (error) {
+              console.log("Error occurred while inserting");
+              done();
+            }
+            api
+              .put(`/api/locations/${latestResult._id}`)
+              .set("Content-Type", "application/json")
+              .send({ male: 44000, parentLocation: result._id })
+              .end((error, response) => {
+                if (error) {
+                  throw done(error);
+                }
+                expect(response.status).toEqual(400);
+                expect(response.body.message).toMatch(
+                  "The male total cannot be greater than the parent location male total"
+                );
+                done();
+              });
+          }
+        );
+      }
+    });
+  });
 });
