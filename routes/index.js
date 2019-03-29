@@ -20,5 +20,12 @@ router.get(
 );
 
 router.get("/locations", locationController.getAllLocations);
+router.put(
+  "/locations/:locationId",
+  validation.objectIdValidationInParams,
+  validation.objectIdValidationInBody,
+  locationCheck,
+  locationController.updateALocation
+);
 
 module.exports = router;

@@ -23,6 +23,11 @@ const locations = [
     name: "Kisumu",
     male: 29850,
     female: 24900
+  },
+  {
+    name: "Busia",
+    male: 30850,
+    female: 34900
   }
 ];
 

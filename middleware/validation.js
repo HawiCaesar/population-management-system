@@ -31,10 +31,14 @@ const validateLocationName = (request, response, next) => {
 };
 
 const objectIdValidationInBody = (request, response, next) => {
-  if (request.body.parentLocation) {
-    if (!ObjectID.isValid(request.body.parentLocation)) {
+  const { parentLocation } = request.body;
+  if (parentLocation) {
+    if (!ObjectID.isValid(parentLocation)) {
       return response.status(404).send({ message: "Location id not found" });
     }
+  }
+  if (parentLocation === null) {
+    return next();
   }
   return next();
 };
