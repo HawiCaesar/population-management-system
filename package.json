@@ -14,9 +14,12 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "export NODE_ENV=test && jest tests/*.test.js -i --detectOpenHandles --forceExit"
+    "test": "export NODE_ENV=test && jest tests/*.test.js --detectOpenHandles --forceExit",
+    "coverage": "yarn test --coverage",
+    "coverage-report": "yarn test --coverage && cat coverage/lcov.info | coveralls"
   },
   "devDependencies": {
+    "coveralls": "^3.0.3",
     "jest": "^24.5.0",
     "nodemon": "^1.18.10",
     "supertest": "^4.0.2"
